@@ -1,3 +1,12 @@
 这是软件体系结构模板，所有内容都建立在这里
 
 先建立该文件和这些内容，然后用鼠标右键，git gui|Create New Repository在该目录上进行初始化。
+
+
+修改好自己的信息后，要在gui中的 Remote|Add 打开增加远程窗口，填写如下信息
+
+Name ： backup（自己起个好记的名字即可 ）
+Location： i:\backup (自己找个目录, backup目录必须是不存在的)
+Futher Action： Initialize Remote Repository and Push
+
+点击 “Add”

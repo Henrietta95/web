@@ -1,0 +1,68 @@
+@font-face {
+  font-family: 'Glyphicons Halflings';
+  src: url('../fonts/glyphicons-halflings-regular.eot');
+  src: url('../fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('../fonts/glyphicons-halflings-regular.woff') format('woff'), url('../fonts/glyphicons-halflings-regular.ttf') format('truetype'), url('../fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
+}
+ 
+.table>tbody>tr>td,.table>thead>tr>th{
+	line-height:30px;
+}
+
+.glyphicon {
+  position: relative;
+  top: 1px;
+  display: inline-block;
+  font-family: 'Glyphicons Halflings';
+  -webkit-font-smoothing: antialiased;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.td-name{
+	display: block;
+	float:left;
+	width:35%;
+	height: 47px;
+}
+
+.td-tel{
+	display:block;
+	float:left;
+	width:35%;
+	height: 47px;
+}
+
+.td-btn{
+	display:block;
+	float:left;
+	width:30%;
+	text-align: center;
+	height: 47px;
+}
+
+.btn-plus{
+	display:block;
+	float:right;
+	margin-top:-1px;
+	margin-right:4%;
+}
+
+.xs-icon{
+	padding-top: 5px;
+}
+
+.panel-head{
+	height:50px;
+	font-size: 16px;
+	line-height:29px;
+}
+
+.adlis{
+	margin-top: 10px;
+}
+
+.modal-plus{
+	margin-top:100px;
+}

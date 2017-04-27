@@ -1,0 +1,15 @@
+.form-login{
+	margin-top: 100px;
+}
+
+.btn-register{
+	margin-top:25px;
+}
+
+.form-tip{
+	display: block;
+	color: red;
+	margin-top:5px;
+	margin-bottom: -10px;
+	padding-left: 2px;
+}

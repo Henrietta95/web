@@ -42,11 +42,18 @@
 	height: 47px;
 }
 
-.btn-plus{
+.btn-download{
 	display:block;
 	float:right;
 	margin-top:-1px;
 	margin-right:4%;
+}
+
+.btn-upload,.btn-plus{
+	display:block;
+	float:right;
+	margin-top:-1px;
+	margin-right:10px;
 }
 
 .xs-icon{
@@ -65,4 +72,29 @@
 
 .modal-plus{
 	margin-top:100px;
+}
+
+.div-search{
+	display;block;
+	margin-top:-3px;
+	margin-left:10px;
+	width:25%;
+	float:left;
+}
+
+.panel-head span{
+	display:block;
+	float:left;
+}
+
+.a-search,.a-search:hover,.a-search:active,.a-search:visited{
+	color:#555;
+}
+
+.btn-show,.btn-show:hover,.btn-show:active,.btn-show:visited{
+	display:block;
+	float:left;
+	margin-top:-2px;
+	margin-left:3px;
+	color:#555;
 }

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hwt.mapper.LinkManMapper">
+
+  <insert id="insert" parameterType="LinkMan">
+  	insert into `link_man` 
+  	(`account`,`tel`,`userId`) 
+  	values 
+  	(#{account},#{tel},#{userId})
+  </insert>	
+  
+  <resultMap type="LinkMan" id="LinkMan">
+  </resultMap>
+ 
+  <select id="getById" parameterType="String" resultType="LinkMan">
+    select * from `link_man` where id = #{id}
+  </select>
+  
+  
+  <delete id="deleteById" parameterType="String">
+  	delete from `link_man` where id = #{id}
+  </delete>
+  
+  <update id="update" parameterType="LinkMan">
+  	update `link_man` set 
+  	account = #{account},
+  	tel = #{tel},  	userId = #{userId}
+  	where id = #{id}
+  </update>
+  
+    <select id="selectLinkMan"  resultMap="LinkMan">
+  	select * from `link_man` 
+  	where userId=#{userId}
+  <if test="account != null and account != ''">
+			and account like CONCAT("%",#{account},"%")
+		</if>
+		  <if test="tel != null and tel != ''">
+			and tel like CONCAT("%",#{tel},"%")
+		</if>
+  </select>
+  
+  <select id="list" parameterType="LinkMan" resultMap="LinkMan">
+  	select * from `link_man`
+  </select>
+  
+  <select id="findByPage" parameterType="LinkMan" resultMap="LinkMan">
+  	select * from `link_man`
+  </select>
+  
+</mapper>

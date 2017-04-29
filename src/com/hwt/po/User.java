@@ -1,7 +1,6 @@
 package com.hwt.po;
 
 import java.io.Serializable;
-import java.util.UUID;
 
 @SuppressWarnings("serial")
 public class User implements Serializable {
@@ -12,8 +11,6 @@ public class User implements Serializable {
 
 	public User() {
 		super();
-		UUID uuid = UUID.randomUUID();
-		this.id = uuid.toString();
 	}
 
 	public String getId() {

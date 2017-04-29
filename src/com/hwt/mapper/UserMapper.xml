@@ -6,9 +6,9 @@
 
   <insert id="insert" parameterType="User">
   	insert into `user` 
-  	(`id`,`username`,`password`) 
+  	(`username`,`password`) 
   	values 
-  	(#{id},#{username},#{password})
+  	(#{username},#{password})
   </insert>	
   
   <resultMap type="User" id="user">

@@ -59,7 +59,7 @@ http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
 	</bean>
 
 	<bean id="pageInterceptor" class="com.hwt.page.PageInterceptor"></bean>
-	<bean id="logInterceptor" class="com.hwt.log.LogInterceptor"></bean>
+<!-- 	<bean id="logInterceptor" class="com.hwt.log.LogInterceptor"></bean> -->
 
 	<!-- myBatis文件 -->
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
@@ -69,7 +69,7 @@ http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
 		<property name="typeAliasesPackage" value="com.hwt" />
 		<property name="plugins">
 			<array>
-				<ref bean="logInterceptor" />
+	<!-- 			<ref bean="logInterceptor" /> -->
 				<ref bean="pageInterceptor" />
 			</array>
 		</property>

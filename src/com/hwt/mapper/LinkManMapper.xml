@@ -34,19 +34,21 @@
   	select * from `link_man` 
   	where userId=#{userId}
   <if test="account != null and account != ''">
-			and account like CONCAT("%",#{account},"%")
+			and (account like CONCAT("%",#{account},"%")
 		</if>
 		  <if test="tel != null and tel != ''">
-			and tel like CONCAT("%",#{tel},"%")
+			or tel like CONCAT("%",#{tel},"%"))
 		</if>
   </select>
   
+       <select id="selectLinkManByTel"  resultMap="LinkMan">
+  	select * from `link_man` 
+  	where userId=#{userId}
+       and  tel= #{tel}
+  </select>
   <select id="list" parameterType="LinkMan" resultMap="LinkMan">
   	select * from `link_man`
   </select>
   
-  <select id="findByPage" parameterType="LinkMan" resultMap="LinkMan">
-  	select * from `link_man`
-  </select>
   
 </mapper>

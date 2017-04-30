@@ -3,7 +3,6 @@ package com.hwt.service;
 import java.io.Serializable;
 import java.util.List;
 
-import com.hwt.page.Page;
 
 public interface BaseService<T, ID extends Serializable> {
 
@@ -17,8 +16,6 @@ public interface BaseService<T, ID extends Serializable> {
 
 	List<T> list(T t);
 	
-	Page<T> findByPage(T t); 
 	
-	Page<T> buildPage(List<T> data);
 
 }

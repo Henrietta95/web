@@ -4,8 +4,6 @@ import java.io.Serializable;
 import java.util.List;
 
 import com.hwt.mapper.BaseMapper;
-import com.hwt.page.Page;
-import com.hwt.page.PageContext;
 import com.hwt.service.BaseService;
 
 public class BaseServiceImpl<T, ID extends Serializable> implements
@@ -46,21 +44,5 @@ public class BaseServiceImpl<T, ID extends Serializable> implements
 		return baseMapper.list(t);
 	}
 
-	@Override
-	public Page<T> findByPage(T t) {
-		List<T> data = baseMapper.findByPage(t);
-		return buildPage(data);
-	}
-
-	@Override
-	public Page<T> buildPage(List<T> data) {
-		Page<T> page = new Page<T>();
-		page.setData(data);
-		page.setOffset(PageContext.getPageOffset());
-		page.setSize(PageContext.getPageSize());
-		page.setTotalCount(PageContext.getTotalCount());
-		page.setTotalPage(PageContext.getTotalPage());
-		return page;
-	}
 
 }

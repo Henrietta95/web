@@ -64,7 +64,6 @@ $(function () {
 			data : {
 				Account :AddAccount,
 				Tel : AddTel,
-
 			},
 			error : function(request) {
 				alert("网络请求失败");
@@ -72,9 +71,11 @@ $(function () {
 			success : function(data) {
 //			console.log(data);
 			if(data.success==true){
-				location.href="login.html";
+				alert(data.message);
+				selectLinkMan();
 			}else{
-				alert("失败");
+				alert(data.message);
+				if(data.data=="-1")location.href=json.href;
 			}
 			}
 		});
@@ -134,7 +135,11 @@ function initTable(data){//初始化表格
 }
 	
 }
-
+function showAllTable(){//查询表格
+	$("#exampleInputAmount").val("");
+	selectLinkMan();
+	
+}
 function editLinkMan(account,tel,id){//编辑联系人
 //	alert(account+";"+tel+";"+id);return;
 	$("#EidtAccount").val(account);
@@ -164,10 +169,11 @@ function editSummit(){//编辑联系人提交
 		success : function(data) {
 //		console.log(data);
 		if(data.success==true){
-			alert("更新成功");
-	            initTable(data.data);
+			alert(data.message);
+	          
 		}else{
-			alert("更新失败");
+			alert(data.message);
+			if(data.data=="-1")location.href=data.href;
 		}
 		}
 	});

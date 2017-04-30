@@ -14,5 +14,7 @@ import com.hwt.po.LinkMan;
 public interface LinkManMapper extends BaseMapper<LinkMan, String> {
 
 	List<LinkMan> selectLinkMan(@Param("userId")String userId,@Param("account") String account,@Param("tel") String tel);
+
+	List<LinkMan> selectLinkManByTel(@Param("tel")String tel,@Param("userId")String userId);
 	
 }

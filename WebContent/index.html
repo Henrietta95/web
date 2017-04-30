@@ -30,15 +30,15 @@
 	        <span>通讯录</span>
 			<div class="input-group div-search">
 				<input type="text" class="form-control" id="exampleInputAmount" placeholder="搜索姓名/号码">
-				<a href="#" class="input-group-addon a-search"><span class="glyphicon glyphicon-search"></span></a>
+				<a onclick="selectLinkMan()" class="input-group-addon a-search"><span class="glyphicon glyphicon-search"></span></a>
 			</div>
-            <button class="btn btn-link btn-show" type="submit">显示全部</button>
-    		<button type="button" class="btn btn-success btn-sm btn-download">
-				<span class="glyphicon glyphicon-save" aria-hidden="true"></span>&nbsp;导出excel通讯录
+            <button class="btn btn-link btn-show" onclick="showAllTable()">显示全部</button>
+    		<button type="button" class="btn btn-success btn-sm btn-download"  onclick="javascript:window.open('user/exportExamExcel.do')">
+				<span class="glyphicon glyphicon-save" aria-hidden="true" ></span>&nbsp;导出excel通讯录
 			</button>
-			<button type="button" class="btn btn-success btn-sm btn-upload" data-toggle="modal" data-target="#uploadModal">
+			<!-- <button type="button" class="btn btn-success btn-sm btn-upload" data-toggle="modal" data-target="#uploadModal">
 				<span class="glyphicon glyphicon-open" aria-hidden="true"></span>&nbsp;导入excel通讯录
-			</button>
+			</button> -->
 			<button type="button" class="btn btn-success btn-sm btn-plus" data-toggle="modal" data-target="#plusModal">
 				<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp;添加联系人
 			</button>

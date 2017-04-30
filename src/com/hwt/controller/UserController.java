@@ -1,7 +1,13 @@
 package com.hwt.controller;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +21,7 @@ import com.hwt.po.LinkMan;
 import com.hwt.po.User;
 import com.hwt.service.LinkManService;
 import com.hwt.service.UserService;
+import com.hwt.util.ExcelFile;
 import com.hwt.util.Json;
 
 @AuthClass
@@ -119,7 +126,6 @@ public class UserController {
 	 * @return
 	 */
 	@Auth(role = "admin,user", description = "login")
-	@SuppressWarnings("finally")
 	@ResponseBody()
 	@RequestMapping("login")
 	public Json login(String loginName, String password,
@@ -149,21 +155,31 @@ public class UserController {
 	 */
 	@Auth(role = "admin,user", description = "register")
 	@ResponseBody()
-	@SuppressWarnings("finally")
 	@RequestMapping("register")
 	public Json  register(String loginName, String password,
 			HttpSession session) {
 
 		Json json = new Json();
+		if(!loginName.matches("^[a-zA-Z0-9\u4e00-\u9fa5]{6,12}$")){
+			json.success = false;
+			json.message = "账号必须由英文，中文，数字组成，并且要求在6-12内";	 
+			return json;
+		}
+		if(!password.matches("^[a-zA-Z0-9]{6,}$")){
+			json.success = false;
+			json.message = "密码必须由英文，数字组成，并且要求大于6位";	 
+			return json;
+		}
 		if (userService.getByName(loginName)==true) {
 //		password = MD5Encryption.getMD5(password);
 		User user=new User();
 		user.setUsername(loginName);
 		user.setPassword(password);
 		userService.add(user);
+		 user = userService.getByUsername(loginName, password);
 		session.setAttribute("userSession", user);
 		json.success = true;
-		json.message = "匹配成功,可用";
+		json.message = "注册成功";
 		json.href = "index.html";
 		json.data = user;
 	}else{
@@ -188,11 +204,26 @@ public class UserController {
     		json.success = false;
     		json.message = "登录已经失效，请重新登录";	 
     		json.href = "login.html";
+    		json.data="-1";
     		return json;
      }
-		
-
+     List<LinkMan> linkManList= linkManService.selectLinkManByTel(Tel,user.getId());
+     if(linkManList.size()!=0){
+ 		json.success = false;
+		json.message = "电话存在重复，请确认后重新添加";	 
+		json.data="0";
 		return json;
+     }else{
+    	 LinkMan   	 linkMan=new LinkMan();
+    	 linkMan.setAccount(Account);
+    	 linkMan.setTel(Tel);
+    	 linkMan.setUserId(user.getId());
+    	 linkManService.add(linkMan);
+    	 json.success = true;
+ 		json.message = "添加成功";	 
+ 		return json;
+     }
+     
 	}
 	
 	/**
@@ -233,16 +264,25 @@ public class UserController {
     		json.success = false;
     		json.message = "登录已经失效，请重新登录";	 
     		json.href = "login.html";
+    		json.data="-1";
     		return json;
      } 
+     List<LinkMan> linkManList= linkManService.selectLinkManByTel(Tel,user.getId());
+     if(linkManList.size()!=0){
+    	 LinkMan linkMan=	 linkManList.get(0);
+    	 if(!linkMan.getId().equals(id)){
+  		json.success = false;
+ 		json.message = "电话存在重复，请确认后重新添加";	 
+ 		json.data="0";
+ 		return json;}
+      }
    LinkMan linkman=  linkManService.getById(id);
    linkman.setAccount(Account);
    linkman.setTel(Tel);
    linkManService.update(linkman);
-   List<LinkMan> linkManList=  linkManService.selectLinkMan(user.getId(),null,null);
-    json.success = true;
+  
 	json.message = "成功";
-	json.data=linkManList;
+//	json.data=linkManList;
 		return json;
 	}
 
@@ -269,5 +309,54 @@ public class UserController {
 	json.message = "成功";
 	json.data=linkManList;
 		return json;
+	}
+	
+	
+	@Auth(role = "admin,user", description = "exportExamExcel")
+	@RequestMapping("exportExamExcel")
+	@ResponseBody
+	public Json   exportExcel(HttpServletRequest request,
+			HttpServletResponse response,HttpSession session) {
+		Json json=new Json();
+		User user=(User)session.getAttribute("userSession");
+	     if(user==null){
+	    		json.success = false;
+	    		json.message = "登录已经失效，请重新登录";	 
+	    		json.href = "login.html";
+	    		return json;
+	     } 
+	        String title[] = {"通讯录"};
+	        List<List<String>> header=new ArrayList<List<String>>(); 
+	        //表头数据
+	        List<String> header0 =new ArrayList<String>();
+	        header0.add("姓名/Name");
+	        header0.add("号码/Tel");
+	    
+	        //表头
+	        header.add(header0);
+	      
+	        
+	        //查数据
+	        List<List<List<String>>> data = new ArrayList<List<List<String>>>();
+	        List<List<String>> data0 =new ArrayList<List<String>>();
+	        //个人信息表
+	        List<LinkMan> linkManList= linkManService.selectLinkMan(user.getId(),null,null);
+	   
+	        for (int i = 0; i < linkManList.size(); ++i) {
+            	List<String> aList =new ArrayList<String>();
+            	aList.add(linkManList.get(i).getAccount());
+            	aList.add(linkManList.get(i).getTel());
+                data0.add(aList);
+            }  
+            data.add(data0);
+	        ExcelFile ef = new ExcelFile(title, header, data,1);
+	        try {
+				ef.saveMultisheet(request,response,user.getUsername()+"的通讯录");
+			} catch (IOException e) {
+				e.printStackTrace();
+			}	
+	        json.success = true;
+    		json.message = "导出成功";	 
+    		return json;
 	}
 }

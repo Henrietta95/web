@@ -58,7 +58,7 @@ http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
 		<property name="filters" value="mergeStat" />
 	</bean>
 
-	<bean id="pageInterceptor" class="com.hwt.page.PageInterceptor"></bean>
+<!-- 	<bean id="pageInterceptor" class="com.hwt.page.PageInterceptor"></bean> -->
 <!-- 	<bean id="logInterceptor" class="com.hwt.log.LogInterceptor"></bean> -->
 
 	<!-- myBatis文件 -->
@@ -70,7 +70,7 @@ http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
 		<property name="plugins">
 			<array>
 	<!-- 			<ref bean="logInterceptor" /> -->
-				<ref bean="pageInterceptor" />
+			<!-- 	<ref bean="pageInterceptor" /> -->
 			</array>
 		</property>
 	</bean>

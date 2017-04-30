@@ -26,4 +26,9 @@ LinkManService {
 		
 		return linkManMapper.selectLinkMan(userId,account,tel);
 	}
+
+	@Override
+	public List<LinkMan> selectLinkManByTel(String tel, String userId) {
+		return linkManMapper.selectLinkManByTel(tel,userId);
+	}
 }

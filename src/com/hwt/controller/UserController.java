@@ -160,9 +160,9 @@ public class UserController {
 			HttpSession session) {
 
 		Json json = new Json();
-		if(!loginName.matches("^[a-zA-Z0-9\u4e00-\u9fa5]{6,12}$")){
+		if(!loginName.matches("^[a-zA-Z0-9\u4e00-\u9fa5]{2,12}$")){
 			json.success = false;
-			json.message = "账号必须由英文，中文，数字组成，并且要求在6-12内";	 
+			json.message = "账号必须由英文，中文，数字组成，并且要求在2-12内";	 
 			return json;
 		}
 		if(!password.matches("^[a-zA-Z0-9]{6,}$")){

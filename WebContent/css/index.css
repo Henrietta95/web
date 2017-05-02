@@ -98,3 +98,26 @@
 	margin-left:3px;
 	color:#555;
 }
+
+.progressBG{
+	position:fixed;
+	top:0;
+	z-index:1000000;
+	width:100%;
+	height:100%;
+	background-color:rgba(0,0,0,0.7);
+	display:none;
+}
+
+.progressimg{
+	background-color:#fff;
+	margin-top:300px;
+	padding:40px;
+	border-radius: 5px;
+}
+
+.loadTip{
+	display:block;
+	width:100%;
+	text-align: center;
+}

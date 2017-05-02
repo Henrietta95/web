@@ -1,6 +1,5 @@
 var deleteId;
 $(function () {
-	
 	$.ajax({//进入页面获取是否登录
 		async : true,
 		dataType : 'json',
@@ -48,7 +47,7 @@ $(function () {
 			}
 		});
 		return false;
-	})	
+	});	
 	
 	
 	$("#btn-saveLinkMan").click(function () {//添加联系人
@@ -56,6 +55,8 @@ $(function () {
 		var AddTel=	$("#AddTel").val();
 	  if(AddAccount==null||AddAccount==""||AddAccount==undefined){alert("姓名不能为空");return false;}
 	  if(AddTel==null||AddTel==""||AddTel==undefined){alert("号码不能为空");return false;}
+		$("#loadTip").html("添加中...");
+		$("#loadProgress").show();
 		$.ajax({
 			async : true,
 			dataType : 'json',
@@ -66,13 +67,16 @@ $(function () {
 				Tel : AddTel,
 			},
 			error : function(request) {
+	           $("#loadProgress").hide();
 				alert("网络请求失败");
 			},
 			success : function(data) {
-//			console.log(data);
+			$("#loadProgress").hide();
 			if(data.success==true){
 				alert(data.message);
 				selectLinkMan();
+		       $("#AddAccount").val("");
+		       $("#AddTel").val("");
 			}else{
 				alert(data.message);
 				if(data.data=="-1")location.href=json.href;
@@ -87,6 +91,8 @@ $(function () {
 
 function selectLinkMan() {//查询联系人
 	var exampleInputAmount=	$("#exampleInputAmount").val();
+	$("#loadTip").html("加载中...");
+	$("#loadProgress").show();
 	$.ajax({
 		async : true,
 		dataType : 'json',
@@ -97,14 +103,17 @@ function selectLinkMan() {//查询联系人
 			Tel : exampleInputAmount,
 		},
 		error : function(request) {
+	        $("#loadProgress").hide();
 			alert("网络请求失败");
 		},
 		success : function(data) {
-//		console.log(data);
+	    $("#loadProgress").hide();
 		if(data.success==true){
 //            console.log(data);
             initTable(data.data);
+	        $("#loadProgress").hide();
 		}else{
+	        $("#loadProgress").hide();
 			alert(data.message);
 			location.href=data.href;
 		}
@@ -136,9 +145,11 @@ function initTable(data){//初始化表格
 	
 }
 function showAllTable(){//查询表格
+	$("#loadTip").html("查询中...");
+	$("#loadProgress").show();
 	$("#exampleInputAmount").val("");
 	selectLinkMan();
-	
+	$("#loadProgress").hide();	
 }
 function editLinkMan(account,tel,id){//编辑联系人
 //	alert(account+";"+tel+";"+id);return;
@@ -153,6 +164,8 @@ function editSummit(){//编辑联系人提交
 	if(EidtId==undefined||EidtId==""||EidtId==null){alert("出错,请重新点击编辑按钮");return;}
 	if(EidtTel==undefined||EidtTel==""||EidtTel==null){alert("名称不能为空");return;}
 	if(EidtAccount==undefined||EidtAccount==""||EidtAccount==null){alert("电话不能为空");return;}
+	$("#loadTip").html("保存中...");
+	$("#loadProgress").show();
 	$.ajax({
 		async : true,
 		dataType : 'json',
@@ -164,10 +177,11 @@ function editSummit(){//编辑联系人提交
 			id:EidtId
 		},
 		error : function(request) {
+	        $("#loadProgress").hide();
 			alert("网络请求失败");
 		},
 		success : function(data) {
-//		console.log(data);
+	    $("#loadProgress").hide();
 		if(data.success==true){
 			alert(data.message);
 	          
@@ -184,7 +198,8 @@ function deleteLinkMan(id){//删除联系人
 }
 function deleteSummit(){//删除联系人
 	if(deleteId==undefined||deleteId==""||deleteId==null){alert("id不能为空");return;}
-
+	$("#loadTip").html("删除中...");
+	$("#loadProgress").show();
 	$.ajax({
 		async : true,
 		dataType : 'json',
@@ -194,10 +209,11 @@ function deleteSummit(){//删除联系人
 			id:deleteId
 		},
 		error : function(request) {
+	       $("#loadProgress").hide();
 			alert("网络请求失败");
 		},
 		success : function(data) {
-//		console.log(data);
+	    $("#loadProgress").hide();
 		if(data.success==true){
 			alert("删除成功");
 	            initTable(data.data);

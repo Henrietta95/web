@@ -23,6 +23,7 @@ import com.hwt.service.LinkManService;
 import com.hwt.service.UserService;
 import com.hwt.util.ExcelFile;
 import com.hwt.util.Json;
+import com.hwt.util.MD5Utils;
 
 @AuthClass
 @Controller
@@ -101,7 +102,7 @@ public class UserController {
 					json.data="true";//跳转
 	}else 
 		if(user.getPassword().equals(oldPassowrd)){
-		user.setPassword(newPassword);
+		user.setPassword(MD5Utils.getMD5(newPassword));
 		userService.update(user);
 		json.success = true;
 		json.message = "修改密码成功，请重新登录";
@@ -132,7 +133,7 @@ public class UserController {
 			HttpSession session) {
 	
 		Json json = new Json();
-//			password = MD5Encryption.getMD5(password);
+		password = MD5Utils.getMD5(password);
 		
 			User user = userService.getByUsername(loginName, password);
 			if (user == null) {
@@ -173,6 +174,7 @@ public class UserController {
 		if (userService.getByName(loginName)==true) {
 //		password = MD5Encryption.getMD5(password);
 		User user=new User();
+		password=MD5Utils.getMD5(password);
 		user.setUsername(loginName);
 		user.setPassword(password);
 		userService.add(user);

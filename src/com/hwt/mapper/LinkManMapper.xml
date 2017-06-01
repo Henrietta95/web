@@ -4,7 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hwt.mapper.LinkManMapper">
 
-  <insert id="insert" parameterType="LinkMan">
+ <insert id="insert" parameterType="LinkMan">
   	insert into `link_man` 
   	(`account`,`tel`,`userId`) 
   	values 

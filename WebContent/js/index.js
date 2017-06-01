@@ -75,6 +75,7 @@ $(function () {
 			if(data.success==true){
 				alert(data.message);
 				selectLinkMan();
+				$("#plusModal").hide();
 		       $("#AddAccount").val("");
 		       $("#AddTel").val("");
 			}else{
@@ -152,7 +153,6 @@ function showAllTable(){//查询表格
 	$("#loadProgress").hide();	
 }
 function editLinkMan(account,tel,id){//编辑联系人
-//	alert(account+";"+tel+";"+id);return;
 	$("#EidtAccount").val(account);
 	$("#EidtTel").val(tel);
 	$("#EidtId").val(id); 
@@ -183,6 +183,7 @@ function editSummit(){//编辑联系人提交
 		success : function(data) {
 	    $("#loadProgress").hide();
 		if(data.success==true){
+			$("#changeModal").hide();
 			alert(data.message);
 	          
 		}else{
@@ -215,6 +216,7 @@ function deleteSummit(){//删除联系人
 		success : function(data) {
 	    $("#loadProgress").hide();
 		if(data.success==true){
+			$("#deleteModal").hide();
 			alert("删除成功");
 	            initTable(data.data);
 		}else{

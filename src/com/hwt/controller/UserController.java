@@ -195,13 +195,13 @@ public class UserController {
 	 * 用户添加联系人
 	 * 
 	 */
-	@Auth(role = "admin,user", description = "AddLinkMan")
-	@ResponseBody()
+	@Auth(role = "admin,user", description = "AddLinkMan")//标明权限
+	@ResponseBody()//设置返回对象为json
 	@RequestMapping("AddLinkMan")
 	public Json  AddLinkMan(String Account, String Tel,
 			HttpSession session) {
 		Json json = new Json();
-		User user=(User)session.getAttribute("userSession");
+		User user=(User)session.getAttribute("userSession");//获取用户的登录信息
      if(user==null){
     		json.success = false;
     		json.message = "登录已经失效，请重新登录";	 
@@ -216,7 +216,7 @@ public class UserController {
 		json.data="0";
 		return json;
      }else{
-    	 LinkMan   	 linkMan=new LinkMan();
+    	 LinkMan linkMan=new LinkMan();
     	 linkMan.setAccount(Account);
     	 linkMan.setTel(Tel);
     	 linkMan.setUserId(user.getId());

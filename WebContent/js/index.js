@@ -75,7 +75,7 @@ $(function () {
 			if(data.success==true){
 				alert(data.message);
 				selectLinkMan();
-				$("#plusModal").hide();
+				$("#plusModal").modal('hide');
 		       $("#AddAccount").val("");
 		       $("#AddTel").val("");
 			}else{
@@ -132,7 +132,7 @@ function initTable(data){//初始化表格
 		'			<td class="td-name">'+data[i].account+'</td>'+
 				'	<td class="td-tel">'+data[i].tel+'</td>'+
 			'		<td class="td-btn">'+
-				'		<button type="button" class="btn btn-primary btn-sm col-md-3 col-md-offset-3 btn-change"  data-toggle="modal" data-target="#changeModal"onclick="editLinkMan('+data[i].account+','+data[i].tel+','+data[i].id+')">'+
+				'		<button type="button" class="btn btn-primary btn-sm col-md-3 col-md-offset-3 btn-change"  data-toggle="modal" data-target="#changeModal"onclick="editLinkMan(\''+data[i].account+'\','+data[i].tel+','+data[i].id+')">'+
 							'<span class="glyphicon glyphicon-edit" aria-hidden="true" ></span>&nbsp;编辑'+
 						'</button>'+
 						'<button type="button" class="btn btn-primary btn-sm col-md-3 col-md-offset-1" data-toggle="modal" data-target="#deleteModal" onclick="deleteLinkMan('+data[i].id+')" >'+
@@ -183,9 +183,9 @@ function editSummit(){//编辑联系人提交
 		success : function(data) {
 	    $("#loadProgress").hide();
 		if(data.success==true){
-			$("#changeModal").hide();
+			$("#changeModal").modal('hide');
 			alert(data.message);
-	          
+			selectLinkMan();
 		}else{
 			alert(data.message);
 			if(data.data=="-1")location.href=data.href;
@@ -216,7 +216,7 @@ function deleteSummit(){//删除联系人
 		success : function(data) {
 	    $("#loadProgress").hide();
 		if(data.success==true){
-			$("#deleteModal").hide();
+			$("#deleteModal").modal('hide');
 			alert("删除成功");
 	            initTable(data.data);
 		}else{
